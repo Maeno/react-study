@@ -16,7 +16,9 @@ class App extends Component {
       second: '',
       thrid: '',
       fourth: '',
-      fifth: ''
+      fifth: '',
+      out: '',
+      title: ''
     }
   }
 
@@ -28,12 +30,33 @@ class App extends Component {
 
   onClick (e) {
     const tmpDate = this.state.startDate
+    const out = 
+    '*** TODO ' + this.state.title + '\r\n' + 
+    '**** TODO ' + this.state.title + ' (1st)\r\n' + 
+    '     SCHEDULED: <' + moment(tmpDate).format('YYYY-MM-DD') + '> DEADLINE: <' + moment(tmpDate).format('YYYY-MM-DD') + '>\r\n' + 
+    '**** TODO ' + this.state.title + ' (2nd)\r\n' + 
+    '     SCHEDULED: <' + moment(tmpDate).add('days', 1).format('YYYY-MM-DD') + '> DEADLINE: <' + moment(tmpDate).add('days', 1).format('YYYY-MM-DD') + '>\r\n' + 
+    '**** TODO ' + this.state.title + ' (3rd)\r\n' + 
+    '     SCHEDULED: <' + moment(tmpDate).add('days', 7).format('YYYY-MM-DD') + '> DEADLINE: <' + moment(tmpDate).add('days', 7).format('YYYY-MM-DD') + '>\r\n' + 
+    '**** TODO ' + this.state.title + ' (4th)\r\n' + 
+    '     SCHEDULED: <' + moment(tmpDate).add('M', 1).format('YYYY-MM-DD') + '> DEADLINE: <' + moment(tmpDate).add('M', 1).format('YYYY-MM-DD') + '>\r\n' + 
+    '**** TODO ' + this.state.title + ' (5th)\r\n' + 
+    '     SCHEDULED: <' + moment(tmpDate).add('M', 6).format('YYYY-MM-DD') + '> DEADLINE: <' + moment(tmpDate).add('M', 6).format('YYYY-MM-DD') + '>\r\n'
+    
+    
     this.setState({
       first: moment(tmpDate).format('YYYY/MM/DD'),
       second: moment(tmpDate).add('days', 1).format('YYYY/MM/DD'),
       thrid: moment(tmpDate).add('days', 7).format('YYYY/MM/DD'),
       fourth: moment(tmpDate).add('M', 1).format('YYYY/MM/DD'),
-      fifth: moment(tmpDate).add('M', 6).format('YYYY/MM/DD')
+      fifth: moment(tmpDate).add('M', 6).format('YYYY/MM/DD'),
+      out: out
+    })
+  }
+
+  input (e) {
+    this.setState({
+      title: e.target.value
     })
   }
 
@@ -47,6 +70,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro"></p>
+        <input type="text" placeholder="Input title here." value={this.state.title} onChange={e => this.input(e)}/>
         <DatePicker 
           selected={this.state.startDate} 
           onChange={e => this.handleChange(e)}
@@ -82,6 +106,7 @@ class App extends Component {
             </tr>  
           </tbody>
         </table>
+        <textarea value={this.state.out}/>
       </div>
     );
   }
